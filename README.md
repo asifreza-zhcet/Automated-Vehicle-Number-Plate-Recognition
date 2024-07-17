@@ -1,5 +1,9 @@
 
 # **Title**: Automated Vehicle Number Plate Detection with OpenCV, EasyOCR, and YOLO
+<div style="text-align: center;">
+  ![](https://github.com/asifreza-zhcet/Automated-Vehicle-Number-Plate-Recognition/blob/main/sample_video/sample.gif)
+</div>  
+
 
 ## Description:
 This project implements a real-time vehicle number plate detection system using OpenCV, EasyOCR, and a custom YOLO model. It processes video input, detects cars, extracts license plates using the YOLO model, and recognizes the plate text using EasyOCR.
@@ -62,7 +66,7 @@ The training data for this project was sourced from the Roboflow Universe licens
 https://universe.roboflow.com/roboflow-universe-projects/license-plate-recognition-rxg4e/dataset/4. This dataset provides labeled images containing vehicles with bounding boxes around license plates
 
 
-![](https://github.com/asifreza-zhcet/Automated-Vehicle-Number-Plate-Recognition/blob/main/sample_video/sample.gif "Logo Title Text 1")
+
 
 **Click on the Youtube link given below**
 [![Watch the video](https://img.youtube.com/vi/oWmAqrceugM/hqdefault.jpg)](https://www.youtube.com/watch?v=oWmAqrceugM)

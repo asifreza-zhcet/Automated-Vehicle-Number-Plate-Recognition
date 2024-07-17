@@ -62,7 +62,7 @@ The training data for this project was sourced from the Roboflow Universe licens
 https://universe.roboflow.com/roboflow-universe-projects/license-plate-recognition-rxg4e/dataset/4. This dataset provides labeled images containing vehicles with bounding boxes around license plates
 
 
-![Video](https://github.com/asifreza-zhcet/Automated-Vehicle-Number-Plate-Recognition/blob/main/output/VID_20240715_130710_1721200978.8787594.mp4f)
+![](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
 **Click on the Youtube link given below**
 [![Watch the video](https://img.youtube.com/vi/oWmAqrceugM/hqdefault.jpg)](https://www.youtube.com/watch?v=oWmAqrceugM)

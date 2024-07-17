@@ -1,8 +1,8 @@
 
 # **Title**: Automated Vehicle Number Plate Detection with OpenCV, EasyOCR, and YOLO
-<div style="text-align: center;">
-  ![](https://github.com/asifreza-zhcet/Automated-Vehicle-Number-Plate-Recognition/blob/main/sample_video/sample.gif)
-</div>  
+
+![](https://github.com/asifreza-zhcet/Automated-Vehicle-Number-Plate-Recognition/blob/main/sample_video/sample.gif)
+
 
 
 ## Description:

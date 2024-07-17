@@ -14,7 +14,7 @@ model = YOLO('./models/yolov8n.pt')
 
 
 #3 Loading a video file
-video_file = r"C:\Users\rezaa\spyder\Automated-Vehicle-Number-Plate-Recognition\sample_video\Traffic Control CCTV.mp4"
+video_file = r"C:\Users\rezaa\spyder\Automated-Vehicle-Number-Plate-Recognition\sample_video\VID_20240715_130830.mp4"
 cap = cv.VideoCapture(video_file)
 
 
@@ -27,19 +27,19 @@ fps = cap.get(cv.CAP_PROP_FPS)
 
 
 
-#5 Since the cars a approaching from the top of the screen to the bootom so if we sample only those images of license plate
+#5 Since the cars are approaching from the top of the screen to the bootom so if we sample only those images of license plate
 # which are nearer to the camera i.e., near the bottom of the screen we get better results
-allowed_h = frame_height // 1.11
-
+min_allowed_h = frame_height // 2.28
+max_allowed_h = frame_height // 1.09
 
 
 #6 Saving the video
 folder_name = r'C:\Users\rezaa\spyder\Automated-Vehicle-Number-Plate-Recognition\output'
 if not os.path.exists(folder_name):
     os.mkdir(folder_name)
-output_file = os.path.basename(os.path.splitext(video_file)[0]) + '_' + str(time.time()) +'.avi'
+output_file = os.path.basename(os.path.splitext(video_file)[0]) + '_' + str(time.time()) +'.mp4'
 file_name = os.path.join(folder_name, output_file )
-save_video = cv.VideoWriter(file_name, cv.VideoWriter_fourcc(*'MJPG'), fps, (frame_width,frame_height))
+save_video = cv.VideoWriter(file_name, cv.VideoWriter_fourcc(*'mp4v'), 3, (frame_width,frame_height))
 
 
 
@@ -64,9 +64,9 @@ for i in tqdm(range(total_frames), desc="Processing", unit="iter", ncols=100):
 
         # Looping through each box in a frame and checking if it's a car
         for box in results[0].boxes:
-            if int(box.cls) == 2 and box.is_track :
+            if int(box.cls) in [2 , 3] and box.is_track :
                 has_car = True
-
+                
 
 
                 # If a car is found we are getting it's unique id
@@ -79,19 +79,23 @@ for i in tqdm(range(total_frames), desc="Processing", unit="iter", ncols=100):
 
                 # If the car has already been detected we are not further processing else we are trying to find the license
                 # plate of the car
-                if identity not in all_ids and allowed_h < y2: 
+                with_in_limit = False
+                if identity not in all_ids:
                     car_img = results[0].orig_img[y1:y2,x1:x2,:]
-                    plate_img, has_plate = plate(car_img)
+                    plate_img, has_plate, s1 = plate(car_img)
                     
                     
                     
                 # If we have successfully found the license plate the next is we are trying to extract the text from the plate
                 # and also keeping a record of the car whose plate has been identified so that in the next frame we only do the 
                 # operations only for newer cars only
-                if has_plate:
+                    with_in_limit = min_allowed_h < s1 + y1 < max_allowed_h
+
+                if has_plate and with_in_limit:
                     plate_text = preprocessing(plate_img)
-                    plate_data[identity] = plate_text
-                    all_ids.append(identity)
+                    if plate_text not in list(plate_data.values()):
+                        plate_data[identity] = plate_text
+                        all_ids.append(identity)
                 
 
 
@@ -103,5 +107,6 @@ for i in tqdm(range(total_frames), desc="Processing", unit="iter", ncols=100):
         save_video.write(frame_n)                                           
     else:
         break
+print('Task Completed....')
 cap.release()
 save_video.release()
